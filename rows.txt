@@ -1,0 +1,73 @@
+4
+6
+None
+0
+3
+4, 19, 20
+none
+none
+none
+0
+0
+0
+0
+none
+11, 27
+none
+2
+1
+none
+7
+9, 16
+later - beast
+none
+0
+1
+66, 70, 83
+15
+0
+0
+30
+16, 30
+9, 11, 13
+2, 8
+2
+0
+none
+13
+0
+0
+later - construct
+none
+1, 18
+none - creature
+3, 12
+none
+none
+none
+noen
+none
+none
+none
+45
+14, 17
+none
+18
+none
+37
+15
+none
+none
+later - druid
+6, 10, 11, 12
+1
+none
+none
+2
+4, 7, 12, 15, 53
+later - elmental
+none
+15, 24, 25
+later - elf
+3
+none
