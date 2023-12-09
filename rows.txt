@@ -220,3 +220,27 @@ none
 none
 19, 68, 57
 0
+9, 10
+9, 21, 22
+14, 10,
+1, 2
+34
+33, 28, 6, 34
+0
+none
+later - warrior
+0
+none - werewolf
+3, 5, 12
+later - wizard
+32
+0
+0
+3
+none
+none
+38, 39, 46, 66, 63
+4, 2
+9
+0
+none
