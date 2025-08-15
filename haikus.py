@@ -155,17 +155,17 @@ def _(cache, cmudict, haiku_df, manual, words):
             return manual[word_s]
         if word_s in words:
             return words[word_s]
-        
+
         count = 0
         phones = lookup_word(word_s) # this returns a list of matching phonetic rep's
-    
+
         if phones:                   # if the list isn't empty (the word was found)
             phones0 = phones[0]      #     process the first
             count = len([p for p in phones0 if p[-1].isdigit()]) # count the vowels
         else:
             # print(word_s)
             unknown.append(word_s)
-        
+
         words[word_s] = count
         return count
 
@@ -196,12 +196,32 @@ def _(haiku_df):
         return s
 
     haiku_df['score'] = haiku_df.apply(score, axis=1)
-    return
+    return (HAIKU,)
 
 
 @app.cell
 def _(haiku_df):
     haiku_df.sort_values(by=['score'])
+    return
+
+
+@app.cell
+def _(haiku_df):
+    nonland_haiku_df = haiku_df[~haiku_df['type_line'].str.contains('Land')]
+    return (nonland_haiku_df,)
+
+
+@app.cell
+def _(HAIKU, nonland_haiku_df):
+    def score2(row):
+        s = 0
+        for i in range(3):
+            if row[f'count_{i}'] == HAIKU[i]:
+                s += 1
+            # s += abs(row[f'count_{i}'] - HAIKU[i])
+        return s
+    nonland_haiku_df['score2'] = nonland_haiku_df.apply(score2, axis=1)
+    nonland_haiku_df.sort_values(by=['score2'], ascending=False)
     return
 
 
