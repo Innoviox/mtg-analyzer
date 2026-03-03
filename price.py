@@ -14,8 +14,9 @@ def _():
     import os
     import tqdm
     import time
+    import ast
     from urllib.parse import quote
-    return json, pd, quote, requests, time, tqdm
+    return ast, json, pd, quote, requests, time
 
 
 @app.cell
@@ -79,7 +80,7 @@ def _(quote, requests, time):
     PRICE_URL = "https://www.mtggoldfish.com/price_history_component?card_id={id}&type=paper&price_type=card"
 
     # get_price_history("Lightning Bolt", "m10")
-    return (get_price_history,)
+    return
 
 
 @app.function
@@ -133,29 +134,37 @@ def _():
     cube = open("cubes/moderncubexiv.txt").read().split("# maybeboard")[0].split("\n")[1:-2]
     histories = {}
     errors = []
-    return cube, errors, histories
+    return
 
 
-@app.cell
-def _(cube, errors, get_oset, get_price_history, histories, tqdm):
+@app.cell(disabled=True)
+def _():
 
-    for name in tqdm.tqdm(cube):
-        oset = get_oset(name)
-        if oset is not None:
-            histories[(name, oset)] = get_price_history(name, oset)  
-        else:
-            print("error", name)
-            errors.append(name)
+    # for name in tqdm.tqdm(cube):
+    #     oset = get_oset(name)
+    #     if oset is not None:
+    #         histories[(name, oset)] = get_price_history(name, oset)  
+    #     else:
+    #         print("error", name)
+    #         errors.append(name)
     return
 
 
 @app.cell
-def _(histories):
+def _(ast):
+    histories2 = ast.literal_eval(open("testgeroii").read())
+    histories2
+    return (histories2,)
+
+
+@app.cell
+def _(histories2):
     summed_histories = {}
-    base = histories[list(histories.keys())[0]]
+    histories3 = {k:v for k,v in histories2.items() if v is not None}
+    base = histories3[list(histories3.keys())[0]]
     for k in base.keys():
-        if all(k in i or len(i) == 0 for i in histories.values()):
-            summed_histories[k] = sum(i.get(k, 0) for i in histories.values())
+        # if all(i is None or k in i or len(i) == 0 for i in histories3.values()):
+        summed_histories[k] = sum(i.get(k, 0) for i in histories3.values())
 
     return (summed_histories,)
 
@@ -182,6 +191,18 @@ def _(summed_histories):
     plt.savefig("plot_output.png", dpi=150)
     plt.show()
 
+    return
+
+
+@app.cell
+def _(get_oset):
+    deck = open("ctaerg").readlines()
+    deck = [i.split(" (")[0].split(" /")[0] for i in deck]
+    for card in deck:
+        # print(card)
+        num, *card = card.split()
+        card = ' '.join(card)
+        print(f'{num} {card} ({get_oset(card)})')
     return
 
 
